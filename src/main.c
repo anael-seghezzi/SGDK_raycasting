@@ -197,12 +197,16 @@ int main(bool hardReset)
 				posY += dy;
 
     			if (dx > 0) {
-    				if (map[y][x+1])
+    				if (map[y][x+1]) {
     					posX = min(posX, (x+1)*FP-FP/4);
+						x = posX / FP;
+					}
     			}
     			else {
-    				if (x == 0 || map[y][x-1])
+    				if (x == 0 || map[y][x-1]) {
     					posX = max(posX, x*FP+FP/4);
+						x = posX / FP;
+					}
     			}
 
     			if (dy > 0) {
