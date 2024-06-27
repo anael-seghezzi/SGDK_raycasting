@@ -1,0 +1,1 @@
+extern void clear_buffer(u16 *buffer);
