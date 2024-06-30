@@ -268,20 +268,18 @@ int main(bool hardReset)
 					// side X
 					if (sideDistX < sideDistY) {
 						
-						sideDistX += deltaDistX;
 						mapX += stepX;
 						map_ptr += stepX;
 				
 						u16 hit = *map_ptr; // map[mapY][mapX];
 						if (hit) {
-							s16 distX = (sideDistX - deltaDistX);
 
-							u16 t = tab_wall_div[distX];
+							u16 t = tab_wall_div[sideDistX];
 							u16 *idata = frame_buffer + frame_buffer_xid[x];
-							u16 d = 7 - min(7, distX / FP);
+							u16 d = 7 - min(7, sideDistX / FP);
 
 						#ifdef SHOW_TEXCOORD
-							u16 wallY = posY + (muls(distX, rayDirY) >> FS);
+							u16 wallY = posY + (muls(sideDistX, rayDirY) >> FS);
 							//wallY = ((wallY * 8) >> FS) & 7; // faster
 							wallY = max((wallY - mapY*FP) * 8 / FP, 0); // cleaner
 							u16 color = ((0 + 2*(mapY&1)) << TILE_ATTR_PALETTE_SFT) + 1 + min(d, wallY)*8;
@@ -296,24 +294,24 @@ int main(bool hardReset)
 						
 							break;
 						}
+
+						sideDistX += deltaDistX;
 					}
 					// side Y
 					else {
 						
-						sideDistY += deltaDistY;
 						mapY += stepY;
 						map_ptr += stepY > 0 ? MAP_SIZE : -MAP_SIZE;
 						
 						u16 hit = *map_ptr; // map[mapY][mapX];
 						if (hit) {
-							s16 distY = sideDistY - deltaDistY;
 
-							u16 t = tab_wall_div[distY];
+							u16 t = tab_wall_div[sideDistY];
 							u16 *idata = frame_buffer + frame_buffer_xid[x];
-							u16 d = 7 - min(7, distY / FP);
+							u16 d = 7 - min(7, sideDistY / FP);
 
 						#ifdef SHOW_TEXCOORD
-							u16 wallX = posX + (muls(distY, rayDirX) >> FS);
+							u16 wallX = posX + (muls(sideDistY, rayDirX) >> FS);
 							//wallX = ((wallX * 8) >> FS) & 7; // faster
 							wallX = max((wallX - mapX*FP) * 8 / FP, 0); // cleaner
 							u16 color = ((1 + 2*(mapX&1)) << TILE_ATTR_PALETTE_SFT) + 1 + min(d, wallX)*8;
@@ -328,6 +326,8 @@ int main(bool hardReset)
 							
 							break;
 						}
+
+						sideDistY += deltaDistY;
 					}
 				}
 			}
