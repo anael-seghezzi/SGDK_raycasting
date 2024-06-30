@@ -284,7 +284,11 @@ int main(bool hardReset)
 							wallY = max((wallY - mapY*FP) * 8 / FP, 0); // cleaner
 							u16 color = ((0 + 2*(mapY&1)) << TILE_ATTR_PALETTE_SFT) + 1 + min(d, wallY)*8;
 						#else
-							u16 color = ((0 + 2*(mapY&1)) << TILE_ATTR_PALETTE_SFT) + 1 + d*8;
+							u16 color;
+							if (mapY&1)
+								color = (2 << TILE_ATTR_PALETTE_SFT) + 1 + d*8;
+							else
+								color = 1 + d*8;
 						#endif
 
 							if (t >= 112)
@@ -316,7 +320,11 @@ int main(bool hardReset)
 							wallX = max((wallX - mapX*FP) * 8 / FP, 0); // cleaner
 							u16 color = ((1 + 2*(mapX&1)) << TILE_ATTR_PALETTE_SFT) + 1 + min(d, wallX)*8;
 						#else
-							u16 color = ((1 + 2*(mapX&1)) << TILE_ATTR_PALETTE_SFT) + 1 + d*8;
+							u16 color;
+							if (mapX&1)
+								color = (3 << TILE_ATTR_PALETTE_SFT) + 1 + d*8;
+							else
+								color = (1 << TILE_ATTR_PALETTE_SFT) + 1 + d*8;
 						#endif
 
 							if (t >= 112)
