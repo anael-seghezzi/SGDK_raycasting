@@ -16,7 +16,6 @@
 #define FS 8
 #define FP (1<<FS) // fixed precision
 #define STEP_COUNT 15 // (STEP_COUNT+1 should be a power of two)
-#define F16_UNIT 256
 #define AP 128 // angle precision (optimal for a rotation step of 8 : 1024/8 = 128)
 
 #include "tab_wall_div.h"
@@ -106,7 +105,7 @@ inline static void write_vline(u16 *dest, u16 x, u16 h, u16 color)
 
 int main(bool hardReset)
 {
-	static const u16 unit = FIX16(F16_UNIT);
+	static const u16 unit = FIX16(FP);
 
 	u16 frame_buffer[896*2];
 	u16 frame_buffer_xid[64];
@@ -211,9 +210,9 @@ int main(bool hardReset)
 				f16 cosa = cosFix16(angle);
 				f16 tmp;
 				tmp = fix16Mul(unit, sina);
-				dirX = fix16ToInt(tmp)*(FP/F16_UNIT);
+				dirX = fix16ToInt(tmp);
 				tmp = fix16Mul(unit, cosa);
-				dirY = fix16ToInt(tmp)*(FP/F16_UNIT);
+				dirY = fix16ToInt(tmp);
 			}
 		}
 
