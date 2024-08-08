@@ -232,8 +232,8 @@ int main(bool hardReset)
 			for (u16 x = 0; x < 64; x++) {
 
 				const u16 *delta_ptr = delta_a_ptr + (x * 4);
-				u16 deltaDistX = delta_ptr[0];
-				u16 deltaDistY = delta_ptr[1];
+				u32 deltaDistX = delta_ptr[0];
+				u32 deltaDistY = delta_ptr[1];
 				s16 rayDirX = *(s16 *)&delta_ptr[2];
 				s16 rayDirY = *(s16 *)&delta_ptr[3];
 
@@ -241,7 +241,7 @@ int main(bool hardReset)
 				u16 mapY = mapY_start;
 				const u8 *map_ptr = &map[mapY][mapX];
 
-				u16 sideDistX, sideDistY;
+				u32 sideDistX, sideDistY;
 				s16 stepX, stepY;
 		
 				if (rayDirX < 0) {
