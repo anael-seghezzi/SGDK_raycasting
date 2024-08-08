@@ -241,7 +241,7 @@ int main(bool hardReset)
 				u16 mapY = mapY_start;
 				const u8 *map_ptr = &map[mapY][mapX];
 
-				u32 sideDistX, sideDistY;
+				u16 sideDistX, sideDistY;
 				s16 stepX, stepY;
 		
 				if (rayDirX < 0) {
