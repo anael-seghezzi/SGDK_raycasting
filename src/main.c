@@ -242,7 +242,7 @@ int main(bool hardReset)
 				const u8 *map_ptr = &map[mapY][mapX];
 
 				u32 sideDistX, sideDistY;
-				s16 stepX, stepY;
+				s16 stepX, stepY, stepYMS;
 		
 				if (rayDirX < 0) {
 					stepX = -1;
@@ -255,10 +255,12 @@ int main(bool hardReset)
 				
 				if (rayDirY < 0) {
 					stepY = -1;
+					stepYMS = -MAP_SIZE;
 					sideDistY = mulu(sideDistY_l0, deltaDistY) >> FS;
 				}
 				else {
 					stepY = 1;
+					stepYMS = MAP_SIZE;
 					sideDistY = mulu(sideDistY_l1, deltaDistY) >> FS;
 				}
 		
@@ -304,7 +306,7 @@ int main(bool hardReset)
 					else {
 						
 						mapY += stepY;
-						map_ptr += stepY > 0 ? MAP_SIZE : -MAP_SIZE;
+						map_ptr += stepYMS;
 						
 						u16 hit = *map_ptr; // map[mapY][mapX];
 						if (hit) {
